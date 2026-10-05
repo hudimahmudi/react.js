@@ -42,51 +42,69 @@
 
 
 
-        import { useState } from 'react'
-        import heroImg from './assets/hero.png'
-        import reactLogo from './assets/react.svg'
-        import viteLogo from './assets/vite.svg'
-        import './App.css'
-        import { Peserta } from './component/Peserta'
-        import DataPeserta from './component/DataPeserta'
-        import FormPeserta from './component/FormPeserta'
         
         
-        function App() {
-          const [listPeserta, setListPeserta] = useState(Peserta);
-          const [editPeserta, setEditPeserta] = useState(null)
-          // const listPeserta = Peserta
+        //     const [listPeserta, setListPeserta] = useState(Peserta);
+        //     const [editPeserta, setEditPeserta] = useState(null)
+        //     // const listPeserta = Peserta
+        
+        // const handleSumbit = (DataPeserta) => {
+          //   if(editPeserta) {
+            //     setEditPeserta(listPeserta.map((item) => (item.id === DataPeserta.id ? DataPeserta : item)))
+            //     setEditPeserta(null)
+            //   } else {
+              //     setEditPeserta([...listPeserta, DataPeserta]);
+              //   }
+              //   console.log(DataPeserta);
+              // };
+              
+              // const handleHapus = (id) => {
+                //   setListPeserta(listPeserta.filter((item) => item.id !== id));
+                //   if(id === editPeserta.id){
+                  //     setListPeserta("null")
+                  //   }
+                  // };
+                  
+                  //   return (
+                    //     <>
+                    //     <FormPeserta onSimpan={handleSumbit} pesertaEdit={editPeserta}/>
+                    //     {listPeserta.map((item) =>(
+                      //       <DataPeserta 
+                      //       key={item.id} 
+                      //       peserta={item} 
+                      //       onEdit={setEditPeserta} 
+                      //       onHapus={handleHapus}
+                      //        />
+                      //     ))}
+                      //     </>
+                      //   );
+import { useState } from 'react'
+import heroImg from './assets/hero.png'
+import reactLogo from './assets/react.svg'
+import viteLogo from './assets/vite.svg'
+import './App.css'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
+import Login from './pages/login.pages'
+import MainLayout from './pages/Main.Layout'
+import Dashboard from './pages/dashboard'
+import ListUser from './page user/List'
 
-      const handleSumbit = (DataPeserta) => {
-        if(editPeserta) {
-          setEditPeserta(listPeserta.map((item) => (item.id === DataPeserta.id ? DataPeserta : item)))
-          setEditPeserta(null)
-        } else {
-          setEditPeserta([...listPeserta, DataPeserta]);
-        }
-        console.log(DataPeserta);
-      };
 
-      const handleHapus = (id) => {
-        setListPeserta(listPeserta.filter((item) => item.id !== id));
-        if(id === editPeserta.id){
-          setListPeserta("null")
-        }
-      };
 
-        return (
-          <>
-          <FormPeserta onSimpan={handleSumbit} pesertaEdit={editPeserta}/>
-          {listPeserta.map((item) =>(
-            <DataPeserta 
-            key={item.id} 
-            peserta={item} 
-            onEdit={setEditPeserta} 
-            onHapus={handleHapus}
-             />
-          ))}
-          </>
-        );
+
+function App() {
+  return (
+     <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Navigate to="/Login" replace />} />
+          <Route path="/login" element={<Login/>}></Route>
+          <Route element={<MainLayout />}>
+          <Route path="/dashboard" element={<Dashboard/>}></Route>
+          <Route path="/user" element={<ListUser/>}></Route>
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    );
 }
 
 export default App
